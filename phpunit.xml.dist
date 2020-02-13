@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<phpunit
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	>
+	<testsuites>
+		<testsuite>
+			<!--<directory prefix="test-" suffix=".php">./tests/</directory>-->
+			<file>./tests/test-Stars.php</file>
+			<file>./tests/test-Front.php</file>
+			<file>./tests/test-Admin.php</file>
+			<exclude>./tests/test-sample.php</exclude>
+		</testsuite>
+	</testsuites>
+</phpunit>
