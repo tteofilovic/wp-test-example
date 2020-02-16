@@ -24,14 +24,13 @@ class Front
 
     public function addStarsToTheContent($content)
     {
-        $stars = $this->starsObj->getStars();
+        $stars = apply_filters('stars_string', $this->starsObj->getStars());
+
         $starsString = '<div class="stars">';
         for ($i=0; $i < $stars; $i++){
             $starsString .= '★ ';
         }
         $starsString .= '</div>';
-
-        $starsString = apply_filters('stars_string', $starsString, $stars);
 
         $content = $starsString . $content;
         return $content;

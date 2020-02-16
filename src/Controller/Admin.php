@@ -8,12 +8,12 @@ class Admin
 {
     private $starsObj;
 
-    public function __construct(Stars $stars)
+    public function __construct()
     {
         if (is_admin()) {
             add_action('add_meta_boxes', array($this, 'registerMetaBox'));
             add_action('save_post', array($this, 'saveMetaBox' ), 10, 2);
-            $this->starsObj = $stars;
+            $this->starsObj = new Stars();
         }
     }
 
@@ -33,10 +33,10 @@ class Admin
     {
         wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
 
-        echo '<input 
-        name="stars" 
-        type="number"  
-        min="1" 
+        echo '<input
+        name="stars"
+        type="number"
+        min="1"
         max="5"
         value="' . (int)$this->starsObj->getStars() . '">';
     }
@@ -80,8 +80,19 @@ class Admin
             return;
         }
 
-        $stars = (int)$_POST['stars'];
-
+        $stars = $this->validateNumberOfStars((int)$_POST['stars']);
         $this->starsObj->setStars($stars);
     }
+
+    /**
+     * @param int $number
+     * @return int
+     */
+    private function validateNumberOfStars($number){
+    	$stars = abs($number);
+    	if($stars > 5){
+			$stars = 5;
+		}
+    	return $stars;
+	}
 }
